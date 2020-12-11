@@ -53,7 +53,7 @@ void translate(char *input_text, char *output_text, int mode, int key) {
   }
 }
 
-void process(void *p, int lfd) {
+void process(int lfd) {
   int cfd, mode, key, i;
   char buf[BSIZE], input_text[STRSIZE], output_text[STRSIZE];
   char byte[4];
@@ -89,16 +89,7 @@ int main(void)
 
   svr_init();
 
-  for (i = 0; i < NUMTHREAD; i++) {
-    if (pthread_create(&tid[i], NULL, (void *)process, NULL) != 0) {
-      perror("thread create error"); exit(1);
-    }
-  }
-  for (i = 0; i < NUMTHREAD; i++) {
-    pthread_join(tid[i], NULL);
-  }
-
-  // process(lfd);
+  process(lfd);
   
   return 0;
 }

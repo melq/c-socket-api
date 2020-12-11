@@ -12,7 +12,7 @@
 #define STRSIZE 8191
 
 void client_init(int *lfd) {
-  int svr_sel = 1;
+  int svr_sel = 0;
   char host[STRSIZE];
   struct hostent *he;
   struct sockaddr_in sa;
