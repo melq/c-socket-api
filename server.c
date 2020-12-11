@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
 
 #define PORT 50003
 #define BSIZE 1024
@@ -84,9 +83,6 @@ void process(int lfd) {
 
 int main(void)
 {
-  int i;
-  pthread_t tid[NUMTHREAD];
-
   svr_init();
 
   process(lfd);
