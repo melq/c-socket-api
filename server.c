@@ -9,7 +9,6 @@
 #define PORT 50003
 #define BSIZE 1024
 #define STRSIZE 8191
-#define NUMTHREAD 10
 
 int lfd;
 
