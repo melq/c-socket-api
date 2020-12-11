@@ -11,14 +11,12 @@
 #define BSIZE 1024
 #define STRSIZE 8191
 
+/*ソケット作成やサーバとの接続を行う関数*/
 void client_init(int *lfd) {
-  int svr_sel = 0;
-  char host[STRSIZE];
+  char host[STRSIZE] = "localhost";
   struct hostent *he;
   struct sockaddr_in sa;
 
-  if (svr_sel == 0) strcpy(host, "localhost");
-  else strcpy(host, "knsk.freeddns.org");
   if ((he = gethostbyname(host)) == NULL) {
     perror("server name error"); exit(1);
   }
@@ -35,6 +33,7 @@ void client_init(int *lfd) {
   }
 }
 
+/*ユーザ入力を行う関数*/
 void user_input(char *mode, char *key, char *input_text, int **str_len) {
   int mode_value, key_value;
   char byte[4];
@@ -58,12 +57,12 @@ int main(void) {
   client_init(&lfd);
   user_input(&mode, &key, input_text, &str_len);
 
-  write(lfd, &mode, 1);
+  write(lfd, &mode, 1); //データの送信
   write(lfd, &key, 1);
   write(lfd, (char *)str_len, sizeof(int));
   write(lfd, input_text, ntohl(*str_len));
 
-  read(lfd, buf, BSIZE);
+  read(lfd, buf, BSIZE);  //データの受取
   printf("変換結果: %s\n", buf);
 
   close(lfd);
